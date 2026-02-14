@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>NEUMANN-OS (MVP: Definition Engine)</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>NEUMANN-OS</h1>
+    <p>Definition Engine / Concept Map / Night Session</p>
+  </header>
+
+  <main class="layout">
+    <section class="chat-panel card">
+      <h2>Definition Engine</h2>
+      <div id="chatLog" class="chat-log" aria-live="polite"></div>
+      <form id="chatForm" class="chat-input-row">
+        <input id="chatInput" type="text" placeholder="用語または回答を入力" autocomplete="off" />
+        <button type="submit">送信</button>
+      </form>
+      <div class="inline-actions">
+        <button id="startDefinitionBtn">新規定義訓練</button>
+        <button id="rerankBtn">弱点順を表示</button>
+      </div>
+    </section>
+
+    <section class="side-panel card">
+      <h2>Night Session (60分)</h2>
+      <button id="startNightSessionBtn">Start Night Session</button>
+      <div id="nightSessionStatus" class="status-box">未開始</div>
+      <div class="inline-actions">
+        <button id="nextNightStepBtn">次へ</button>
+      </div>
+
+      <h3>Export / Import</h3>
+      <div class="inline-actions">
+        <button id="exportBtn">JSON Export</button>
+        <label class="import-label">JSON Import
+          <input id="importInput" type="file" accept="application/json" />
+        </label>
+      </div>
+
+      <h3>Concept Detail</h3>
+      <div id="conceptDetail" class="detail-box">ノードをクリックすると詳細表示</div>
+    </section>
+
+    <section class="graph-panel card">
+      <div class="graph-toolbar">
+        <h2>概念地図 (Canvas)</h2>
+        <div class="inline-actions">
+          <button id="addNodeBtn">ノード追加</button>
+          <button id="addEdgeBtn">エッジ追加モード</button>
+          <label class="edge-type-label">種別
+            <select id="edgeTypeSelect">
+              <option value="depends_on">depends_on</option>
+              <option value="implies">implies</option>
+              <option value="contrasts">contrasts</option>
+              <option value="example_of">example_of</option>
+            </select>
+          </label>
+          <button id="deleteModeBtn">削除モード</button>
+        </div>
+      </div>
+      <canvas id="graphCanvas" width="900" height="560"></canvas>
+      <p class="hint">操作: ノードドラッグ移動 / エッジ追加モードでノード2つを順にクリック / 削除モードでノードまたはエッジをクリック</p>
+    </section>
+  </main>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
