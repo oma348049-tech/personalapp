@@ -122,6 +122,47 @@ http://127.0.0.1:8000/index.html
 { "id":"", "date":"YYYY-MM-DD", "plan":["task1","task2","task3"], "attempts":["attemptId"], "summary":"", "createdAt":"" }
 ```
 
+
+## GitHubに反映（push）する手順
+
+「ローカルではあるのにGitHubに出ない」は、ほぼ **remote未設定 / push未実行** が原因です。  
+以下を上から実行すれば反映できます。
+
+### 1) いまの状態確認
+```bash
+git status
+git log --oneline -n 3
+git remote -v
+```
+
+### 2) remote（origin）を設定（未設定の人だけ）
+```bash
+git remote add origin <あなたのGitHubリポジトリURL>
+```
+
+例:
+```bash
+git remote add origin https://github.com/<your-name>/<repo>.git
+```
+
+### 3) ブランチ名を確認してpush
+```bash
+git branch --show-current
+git push -u origin <上で出たブランチ名>
+```
+
+### 4) GitHubで確認
+- GitHubのリポジトリを再読み込み
+- `README.md` や最新コミットが見えれば成功
+
+### pushで失敗したときの典型
+- `remote origin already exists`:
+  - 既に設定済み。`git remote -v` でURL確認
+- `Authentication failed`:
+  - GitHubログイン/トークン設定が必要
+- `src refspec ... does not match any`:
+  - まだコミットがない。先に `git add . && git commit -m "..."`
+
 ## 手動テスト手順
 1. 起動方法
    - `index.html` を開く
