@@ -3,9 +3,10 @@ import { uid } from './storage.js';
 const EDGE_TYPES = ['depends_on', 'implies', 'contrasts', 'example_of'];
 
 export class GraphView {
-  constructor({ canvas, onSelectConcept, onChanged }) {
+  constructor({ canvas, getEdgeType, onSelectConcept, onChanged }) {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
+    this.getEdgeType = getEdgeType;
     this.onSelectConcept = onSelectConcept;
     this.onChanged = onChanged;
 
@@ -112,7 +113,8 @@ export class GraphView {
       this.edgePick.push(concept.id);
       if (this.edgePick.length === 2) {
         const [fromId, toId] = this.edgePick;
-        const type = EDGE_TYPES[(Math.random() * EDGE_TYPES.length) | 0];
+        const selectedType = this.getEdgeType?.();
+        const type = EDGE_TYPES.includes(selectedType) ? selectedType : EDGE_TYPES[0];
         this.onChanged?.('addEdge', {
           id: uid('edge'), fromConceptId: fromId, toConceptId: toId, type
         });

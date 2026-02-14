@@ -22,6 +22,7 @@ const importInput = document.getElementById('importInput');
 const addNodeBtn = document.getElementById('addNodeBtn');
 const addEdgeBtn = document.getElementById('addEdgeBtn');
 const deleteModeBtn = document.getElementById('deleteModeBtn');
+const edgeTypeSelect = document.getElementById('edgeTypeSelect');
 
 let state = await storage.getAll();
 let selectedConceptId = null;
@@ -30,6 +31,7 @@ let night = null;
 
 const graph = new GraphView({
   canvas: document.getElementById('graphCanvas'),
+  getEdgeType: () => edgeTypeSelect.value,
   onSelectConcept: (id) => {
     selectedConceptId = id;
     renderConceptDetail();
